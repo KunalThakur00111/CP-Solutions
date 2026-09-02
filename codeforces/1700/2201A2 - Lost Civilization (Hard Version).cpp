@@ -150,14 +150,13 @@ void solve(){
     vi a(n);
     for(auto& x: a) cin>>x;
     vl dp(n);
-    stack<int> st;
-    st.push(0);
+    map<int,int> mp;
     dp[0]=1;
+    mp[a[0]]=0;
     int lastbad=-1;
     for(int i=1;i<n;i++){
-        while(!st.empty() && a[st.top()]>=a[i]) st.pop();// hume chahiye nearest a[j]<a[i]
         if(a[i]>a[i-1]+1) lastbad=i;
-        int j=(st.empty()?-1:st.top());
+        int j=(mp.count(a[i]-1)?mp[a[i]-1]:-1);
         if(a[i]==a[i-1]+1){
             dp[i]+=dp[i-1]+1;
         }
@@ -165,7 +164,7 @@ void solve(){
             if(j!=-1 && a[j]==a[i]-1 && j>=lastbad) dp[i]=dp[i-1]+i+1-(j+1);
             else dp[i]=dp[i-1]+i+1;
         }
-        st.push(i);
+        mp[a[i]]=i;
     }
     cout<<accumulate(dp.begin(),dp.end(),0LL)<<endl;// 6 + 1 + 2 + 2 + 1 --> 12
 }
