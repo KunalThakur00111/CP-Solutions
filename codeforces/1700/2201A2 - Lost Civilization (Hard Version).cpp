@@ -150,7 +150,7 @@ void solve(){
     vi a(n);
     for(auto& x: a) cin>>x;
     vl dp(n);
-    map<int,int> mp;
+    unordered_map<int,int> mp;
     dp[0]=1;
     mp[a[0]]=0;
     int lastbad=-1;
